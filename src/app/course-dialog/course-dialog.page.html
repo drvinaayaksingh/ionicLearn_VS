@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{course?.description}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Course Description</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Select category</ion-label>
+      <ion-select formControlName="category">
+        <ion-select-option value="BEGINNER">Beginner</ion-select-option>
+        <ion-select-option value="INTERMEDIATE">Intermediate</ion-select-option>
+        <ion-select-option value="ADVANCED">Advanced</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Release Date</ion-label>
+      <ion-datetime display-format="MM/DD/YYYY" picker-format="MM/DD/YYYY" formControlName="releasedAt"></ion-datetime>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea formControlName="longDescription"></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()" [disabled]="!form.valid">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

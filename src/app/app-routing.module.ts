@@ -8,6 +8,15 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
 
+
+  {
+    path: 'course-dialog',
+    loadChildren: () => import('./course-dialog/course-dialog.module').then( m => m.CourseDialogPageModule)
+  },
+  {
+    path: 'course/:courseId',
+    loadChildren: () => import('./course/course.module').then( m => m.CoursePageModule)
+  },
   {
     path: '**',
     redirectTo: '/'
