@@ -19,39 +19,13 @@
     </ion-segment>
   
     <div *ngIf="selectedSegment === 'beginners'">
-      <ion-card *ngFor="let course of beginnerCourses" class="course-card">
-        <ion-card-header>
-          <ion-card-title>{{course?.description}}</ion-card-title>
-        </ion-card-header>
-        <ion-img [src]="course.iconUrl"></ion-img>
-        <ion-card-content>
-          <p>{{course.longDescription}}</p>
-        </ion-card-content>
-        <ion-button expand="block" color="primary" [routerLink]="['/course', course.id]">
-          VIEW COURSE
-        </ion-button>
-        <ion-button expand="block" color="secondary" (click)="editCourse(course)">
-          EDIT
-        </ion-button>
-      </ion-card>
+      <app-courses-card-list [courses]="beginnerCourses$ | async">
+      </app-courses-card-list>
     </div>
   
     <div *ngIf="selectedSegment === 'advanced'">
-      <ion-card *ngFor="let course of advancedCourses" class="course-card">
-        <ion-card-header>
-          <ion-card-title>{{course?.description}}</ion-card-title>
-        </ion-card-header>
-        <ion-img [src]="course.iconUrl"></ion-img>
-        <ion-card-content>
-          <p>{{course.longDescription}}</p>
-        </ion-card-content>
-        <ion-button expand="block" color="primary" [routerLink]="['/course', course.id]">
-          VIEW COURSE
-        </ion-button>
-        <ion-button expand="block" color="secondary" (click)="editCourse(course)">
-          EDIT
-        </ion-button>
-      </ion-card>
+      <app-courses-card-list [courses]="advancedCourses$ | async">
+      </app-courses-card-list>
     </div>
   </div>
   

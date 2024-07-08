@@ -291,3 +291,104 @@ prepareDinner();
 ```
 
 Both methods make the code cleaner and easier to understand, just like having a clear, step-by-step recipe for cooking a meal.
+
+## Meaning of terminology
+
+In an Angular or Ionic project, the `@NgModule` decorator is used to define a module, which is a fundamental building block of the application. The `app.module.ts` file is the root module of your application, and it contains metadata about the module. Here’s a simplified explanation of the main properties in the `@NgModule` decorator:
+
+### Declarations
+
+- **What it is**: This is where you declare the components, directives, and pipes that belong to this module.
+- **Why it's important**: Only the declared components, directives, and pipes can be used within this module unless they are exported by another module that this module imports.
+- **Example**:
+  ```typescript
+  @NgModule({
+    declarations: [
+      AppComponent,
+      HomePage,
+      CoursesCardListComponent,
+      // other components
+    ],
+  })
+  ```
+
+### Providers
+
+- **What it is**: This is where you register services and other dependencies that you want to be available application-wide (or module-wide).
+- **Why it's important**: Services listed here are created once (singleton) and shared throughout the application. They provide the dependency injection mechanism.
+- **Example**:
+  ```typescript
+  @NgModule({
+    providers: [
+      CourseService,
+      // other services
+    ],
+  })
+  ```
+
+### Bootstrap
+
+- **What it is**: This property specifies the root component that Angular should bootstrap when it starts the application.
+- **Why it's important**: The application starts by creating and inserting this root component into the `index.html` host web page.
+- **Example**:
+  ```typescript
+  @NgModule({
+    bootstrap: [AppComponent]
+  })
+  ```
+
+### Schemas
+
+- **What it is**: This property is used to specify a list of schemas that declare the allowed HTML elements and properties.
+- **Why it's important**: This can be useful if you are using custom elements or elements from libraries that Angular doesn't recognize. For instance, when using Web Components.
+- **Example**:
+  ```typescript
+  @NgModule({
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  ```
+
+### Putting It All Together
+
+Here’s how a typical `app.module.ts` might look:
+
+```typescript
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { IonicModule } from '@ionic/angular';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomePage } from './pages/home/home.page';
+import { CoursesCardListComponent } from './components/courses-card-list/courses-card-list.component';
+import { CourseService } from './services/course.service';
+
+@NgModule({
+  declarations: [
+    AppComponent,        // Declaring the root component
+    HomePage,            // Declaring a page component
+    CoursesCardListComponent // Declaring another component
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(), // Importing Ionic module
+    AppRoutingModule       // Importing the app routing module
+  ],
+  providers: [
+    CourseService          // Providing the course service
+  ],
+  bootstrap: [
+    AppComponent           // Bootstrapping the root component
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA // Allowing custom elements
+  ]
+})
+export class AppModule { }
+```
+
+### Summary
+
+- **Declarations**: Declare components, directives, and pipes that belong to this module.
+- **Providers**: Register services and other dependencies to be used throughout the application.
+- **Bootstrap**: Specify the root component that Angular should bootstrap at startup.
+- **Schemas**: Declare allowed HTML elements and properties, useful for custom elements and non-Angular elements.

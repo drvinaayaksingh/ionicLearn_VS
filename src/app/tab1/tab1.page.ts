@@ -3,6 +3,9 @@ import {Course, CourseResponse, sortCoursesBySeqNo} from '../model/course';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
 import {CourseDialogPage} from '../course-dialog/course-dialog.page';
+import { Observable, map } from 'rxjs';
+import {CoursesStoreService} from '../services/courses-store.service';
+import {CoursesService} from '../services/courses.service';
 
 @Component({
   selector: 'app-tab1',
@@ -12,12 +15,14 @@ import {CourseDialogPage} from '../course-dialog/course-dialog.page';
 export class Tab1Page implements OnInit {
  public selectedSegment: string = "beginners";
  
-  beginnerCourses: Course[] | undefined;
+ beginnerCourses$: Observable<Course[]>  | null = null;
 
-  advancedCourses: Course[] | undefined;
+ advancedCourses$: Observable<Course[]>  | null = null;
 
 
-  constructor(private http: HttpClient, private modalController: ModalController) {
+  constructor(private http: HttpClient, private modalController: ModalController, 
+    // private coursesStore: CoursesStoreService, 
+    private courseService:CoursesService ) {
 
   }
 
@@ -29,20 +34,27 @@ export class Tab1Page implements OnInit {
 
 
   ngOnInit() {
+    this.reloadCourses();
+}
 
-    this.http.get<CourseResponse>('/api/courses')
-      .subscribe(
-        res => {  
-          console.log("---res-- ", res, res.payload);
-          if(res && res["payload"] ){
-          const courses: Course[] = res["payload"].sort(sortCoursesBySeqNo);
-          this.beginnerCourses = courses.filter(course => course.category == "BEGINNER");
-          this.advancedCourses = courses.filter(course => course.category == "ADVANCED");
-          }
+reloadCourses() {
+  const courses$ = this.courseService.loadAllCourses(); 
 
-        });
+  courses$.subscribe(val => console.log(val));
+    // this.beginnerCourses$ = this.coursesStore.filterByCategory("BEGINNER");
+    // this.advancedCourses$ = this.coursesStore.filterByCategory("ADVANCED");
 
-  }
+    this.beginnerCourses$ = courses$.
+    pipe(
+    map( courses => courses.filter(course => course.category =='BEGINNER' ) )
+    );
+
+    this.advancedCourses$ = courses$.
+    pipe(
+    map( courses => courses.filter(course => course.category =='ADVANCED' ) )
+    );
+  
+}
 
   async editCourse(course: Course) {
     const modal = await this.modalController.create({

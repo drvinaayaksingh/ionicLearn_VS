@@ -8,3 +8,7 @@ export interface Lesson {
     courseId: number;
     videoId:string;
 }
+
+export interface LessonResponse {
+    payload: Lesson[];
+  }

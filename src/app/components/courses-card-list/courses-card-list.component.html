@@ -1,0 +1,21 @@
+<ion-card *ngFor="let course of courses" class="course-card">
+  <ion-card-header>
+      <ion-card-title>{{course.description}}</ion-card-title>
+  </ion-card-header>
+  <img [src]="course.iconUrl" />
+  <ion-card-content>
+      <p>{{course.longDescription}}</p>
+  </ion-card-content>
+  <ion-row class="course-actions">
+      <ion-col>
+          <ion-button expand="full" color="primary" [routerLink]="['/courses', course.id]">
+              VIEW COURSE
+          </ion-button>
+      </ion-col>
+      <ion-col>
+          <ion-button expand="full" color="secondary" (click)="editCourse(course)">
+              EDIT
+          </ion-button>
+      </ion-col>
+  </ion-row>
+</ion-card>
