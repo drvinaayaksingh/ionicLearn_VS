@@ -1,8 +1,109 @@
 # Learn Advanced Ionic with Dr. Vinaayak Singh
 
+## Basic Setup
+
+# Reactive Angular Course - README
+
+## Step 1: Setup
+
+### Ionic Version
+To get started with the Ionic version of this course, clone the following repository:
+```bash
+git clone https://github.com/drvinaayaksingh/ionicLearn_VS.git
+npm i --legacy-peer-deps
+```
+
+1. --legacy-peer-deps: ignore all peerDependencies when installing, in the style of npm version 4 through version 6.
+
+2. --strict-peer-deps: fail and abort the install process for any conflicting peerDependencies when encountered. By default, npm will only crash for peerDependencies conflicts caused by the direct dependencies of the root project.
+
+3. --force: will force npm to fetch remote resources even if a local copy exists on disk.
 
 
-### Ionic HTML Tags/Components Cheat Sheet
+### Angular Version
+Alternatively, for the Angular version, use:
+```bash
+git clone https://github.com/drvinaayaksingh/AngularCourse.git
+```
+
+### Node.js
+Ensure you have Node.js version 18.19 or higher installed. To manage Node versions, install `nvm` for Windows:
+[NVM for Windows](https://github.com/coreybutler/nvm-windows/releases/download/1.1.12/nvm-setup.exe)
+
+Install and use the required Node version:
+```bash
+nvm install 18.19
+nvm use 18.19
+```
+
+### Global Installations
+To perform the setup from scratch, globally install the following tools:
+```bash
+npm install -g @ionic/cli native-run cordova-res
+ionic --v
+npm install -g @angular/cli@latest
+ng --version
+```
+
+### Project Setup
+Refer to the official Angular CLI update guide:
+[Angular CLI Update](https://angular.dev/cli/update)
+
+Check your Ionic version:
+```bash
+ionic --v
+```
+
+Follow the Ionic framework documentation for your first app:
+[Ionic Framework: Your First App](https://ionicframework.com/docs/angular/your-first-app)
+
+Create a new Ionic project:
+```bash
+ionic start adv-course tabs --type=angular --capacitor
+```
+When prompted, choose `NgModules` as this tutorial follows the `NgModules` approach.
+
+Navigate to the project directory:
+```bash
+cd adv-course
+```
+
+Install the necessary Capacitor plugins:
+```bash
+npm install @capacitor/camera @capacitor/preferences @capacitor/filesystem
+```
+
+### PWA Elements
+Some Capacitor plugins, including the Camera API, provide web-based functionality and UI via the Ionic PWA Elements library. Install it with:
+```bash
+npm install @ionic/pwa-elements
+```
+
+Next, import `@ionic/pwa-elements` by editing `src/main.ts`:
+```typescript
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+// Call the element loader before the bootstrapModule/bootstrapApplication call
+defineCustomElements(window);
+```
+
+### Running the Application
+To run the server:
+```bash
+npm run server
+```
+Check the server at `localhost:9000/api/courses`.
+
+For the UI, run:
+```bash
+npm run start
+```
+This command passes extra parameters to `ng serve` with a special proxy configuration.
+
+Access the application at `localhost:4200`.
+
+
+## Ionic HTML Tags/Components Cheat Sheet
 
 #### 1. **Basic Structure**
 ```html
