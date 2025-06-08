@@ -17,10 +17,16 @@ const routes: Routes = [
     path: 'course/:courseId',
     loadChildren: () => import('./course/course.module').then( m => m.CoursePageModule)
   },
+   {
+    path: 'billing',
+    loadChildren: () => import('./billing/billing.module').then( m => m.BillingPageModule)
+  },
   {
     path: '**',
     redirectTo: '/'
-  }
+  },
+ 
+
 ];
 @NgModule({
   imports: [

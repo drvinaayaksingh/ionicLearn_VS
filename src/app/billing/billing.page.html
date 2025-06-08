@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Billing</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addItemRow()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [formGroup]="form" class="ion-padding">
+  <ion-list formArrayName="items">
+    <ion-item *ngFor="let fg of items.controls; let i = index" [formGroupName]="i">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+            <ion-item lines="none">
+              <ion-label position="floating">Name</ion-label>
+              <ion-input formControlName="name"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-item lines="none">
+              <ion-label position="floating">Price ₹</ion-label>
+              <ion-input type="number" formControlName="price"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1">
+            <ion-item lines="none">
+              <ion-label position="floating">Qty</ion-label>
+              <ion-input type="number" formControlName="qty"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-item lines="none">
+              <ion-label position="floating">Disc ₹</ion-label>
+              <ion-input
+                type="number"
+                formControlName="discountAmount"
+                (ionInput)="onDiscountAmountChange(i)"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-item lines="none">
+              <ion-label position="floating">Disc %</ion-label>
+              <ion-input
+                type="number"
+                formControlName="discountPercent"
+                (ionInput)="onDiscountPercentChange(i)"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2">
+            <ion-item lines="none">
+              <ion-label position="floating">Line Total</ion-label>
+              <ion-input type="number" formControlName="lineTotal" readonly></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <!-- Gross discount row -->
+  <ion-item lines="none" class="ion-margin-top">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3">
+          <ion-item lines="none">
+            <ion-label position="floating">Gross Disc ₹</ion-label>
+            <ion-input
+              type="number"
+              formControlName="grossDiscountAmount"
+              (ionInput)="onGrossDiscountAmountChange()"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-item lines="none">
+            <ion-label position="floating">Gross Disc %</ion-label>
+            <ion-input
+              type="number"
+              formControlName="grossDiscountPercent"
+              (ionInput)="onGrossDiscountPercentChange()"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3" class="ion-text-right">
+          <strong>Final Amount: {{ totals.grossNet | number:'1.2-2' }}</strong>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-content>
