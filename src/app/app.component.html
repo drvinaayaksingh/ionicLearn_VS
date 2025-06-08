@@ -6,10 +6,10 @@
       side="start"
       menuId="start"
       [style.border-right]="
-        showSidebarMenu || showSidebarMenuForProject ? 'none' : ''
+        showSidebarMenu || showSidebarMenuForProject || showSidebarMenuForBilling ? 'none' : ''
       "
       [style.max-width]="
-        showSidebarMenu || showSidebarMenuForProject ? '10%' : ''
+        showSidebarMenu || showSidebarMenuForProject || showSidebarMenuForBilling ? '10%' : ''
       "
     >
   <ion-router-outlet></ion-router-outlet>

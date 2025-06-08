@@ -18,4 +18,10 @@ export class AppComponent {
     let param = str.split('/');
     return param.includes('tab3');
   }
+
+  get showSidebarMenuForBilling(): boolean {
+    let str = window.location.href;
+    let param = str.split('/');
+    return param.includes('billing');
+  }
 }
